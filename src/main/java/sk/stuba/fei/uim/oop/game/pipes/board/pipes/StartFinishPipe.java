@@ -4,6 +4,7 @@ public class StartFinishPipe extends BasePipe {
 
     {
         this.path = "temp//StartFinishPipe.png";
+        this.pathDark = "temp//StartFinishPipe_dark.png";
     }
 
     public StartFinishPipe(int cellWidth, int cellHeight) {

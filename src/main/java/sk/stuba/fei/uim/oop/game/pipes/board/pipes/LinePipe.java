@@ -4,6 +4,7 @@ public class LinePipe extends BasePipe {
 
     {
         this.path = "temp//LinePipe.png";
+        this.pathDark = "temp//LinePipe_dark.png";
     }
 
     public LinePipe(int cellWidth, int cellHeight) {

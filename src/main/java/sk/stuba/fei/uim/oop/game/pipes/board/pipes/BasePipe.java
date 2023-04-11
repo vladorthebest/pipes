@@ -9,7 +9,8 @@ import java.io.File;
 
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;
-    protected String path;
+    protected String path, pathDark;
+
     int cellWidth, cellHeight;
     private int rotationAngle = 0;
 
@@ -55,6 +56,27 @@ public abstract class BasePipe extends JLabel {
         this.setIcon(rotatedIcon);
     }
 
+    private void setAngle() {
+        Image originalImage = icon.getImage();
+
+        Image rotatedImage = rotate(originalImage,  rotationAngle);
+
+        ImageIcon rotatedIcon = new ImageIcon(rotatedImage.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+
+        this.setIcon(rotatedIcon);
+    }
+
+    public void setDarkIcon(){
+        this.icon = new ImageIcon(new ImageIcon(pathDark).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.setIcon(icon);
+        setAngle();
+    }
+
+    public void setCommonIcon(){
+        this.icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.setIcon(icon);
+        setAngle();
+    }
     public BasePipe(){
 
     }

@@ -4,6 +4,7 @@ public class AnglePipe extends BasePipe {
 
     {
         this.path = "temp//AnglePipe.png";
+        this.pathDark = "temp//AnglePipe_dark.png";
     }
 
     public AnglePipe(int cellWidth, int cellHeight) {

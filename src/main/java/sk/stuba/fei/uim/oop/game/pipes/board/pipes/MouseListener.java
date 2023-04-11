@@ -17,11 +17,11 @@ public class MouseListener extends MouseAdapter {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-        basePipe.setBackground(Color.YELLOW);
+        basePipe.setDarkIcon();
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-        basePipe.setBackground(Color.WHITE);
+        basePipe.setCommonIcon();
     }
 }

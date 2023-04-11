@@ -8,8 +8,8 @@ class Maze{
     LinkedList<Cell> path = new LinkedList<>();
     int size = 8;
     Random random = new Random();
-    int startJ;
-    int finishJ;
+    int startJ, startI;
+    int finishI, finishJ;
 
     public LinkedList<Cell> getPath() {
         return path;
@@ -31,9 +31,9 @@ class Maze{
         }
         createStartFinish();
 
-        path.add(maze[0][startJ]);
+        path.add(maze[startI][startJ]);
 //        req(path.getLast().i, path.getLast().j);
-        while (path.getLast().getI() != size-1 || path.getLast().getJ() != finishJ){
+        while (path.getLast().getI() != finishI || path.getLast().getJ() != finishJ){
           req(path.getLast().getI(), path.getLast().getJ());
         }
 
@@ -66,7 +66,11 @@ class Maze{
 
     private void createStartFinish(){
         startJ = random.nextInt(size-1);
+        startI = random.nextInt(size-1);
+
         finishJ = random.nextInt(size-1);
+        finishI = random.nextInt(size-1);
+
     }
 
     public Cell[][] getMaze(){
@@ -80,7 +84,7 @@ class Maze{
         maze[nowI][nowJ].setVisited(true);
         LinkedList<Cell> neighbours = new LinkedList<>();
 
-        if(nowI == size-1 && nowJ == finishJ){
+        if(nowI == finishI && nowJ == finishJ){
             return true;
         }
 

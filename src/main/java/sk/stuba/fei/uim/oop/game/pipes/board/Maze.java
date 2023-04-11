@@ -11,6 +11,9 @@ class Maze{
     int startJ;
     int finishJ;
 
+    public LinkedList<Cell> getPath() {
+        return path;
+    }
 
     public Maze(int size){
         if(size<3){
@@ -27,22 +30,37 @@ class Maze{
             }
         }
         createStartFinish();
-        System.out.println(maze[0][startJ].getValue()+ "  "+ maze[size-1][finishJ].getValue());
 
-        for(int i =0; i<maze.length; i++){
-            for(int j =0; j<maze.length; j++){
-                System.out.print(maze[i][j].getValue() +"  ");
-            }
-            System.out.println();
-        }
         path.add(maze[0][startJ]);
 //        req(path.getLast().i, path.getLast().j);
-        while (path.getLast().i != size-1 || path.getLast().j != finishJ){
-          req(path.getLast().i, path.getLast().j);
+        while (path.getLast().getI() != size-1 || path.getLast().getJ() != finishJ){
+          req(path.getLast().getI(), path.getLast().getJ());
         }
 
-        for(Cell cell:path){
-            System.out.print(cell.getValue() + "  ");
+        pipeSetting();
+
+    }
+
+    private void pipeSetting(){
+        for(int i=0; i<path.size()-1; i++){
+            if (path.get(i).getI() > path.get(i+1).getI()){
+                path.get(i).setOutput(Input.TOP);
+                path.get(i+1).setInput(Input.BOTTOM);
+            } else if (path.get(i).getI() < path.get(i+1).getI()) {
+                path.get(i).setOutput(Input.BOTTOM);
+                path.get(i+1).setInput(Input.TOP);
+            } else if (path.get(i).getJ() > path.get(i+1).getJ()) {
+                path.get(i).setOutput(Input.LEFT);
+                path.get(i+1).setInput(Input.RIGHT);
+            } else if (path.get(i).getJ() < path.get(i+1).getJ()) {
+                path.get(i).setOutput(Input.RIGHT);
+                path.get(i+1).setInput(Input.LEFT);
+            }
+            System.out.println(path.get(i).getOutput() + "  " + path.get(i+1).getInput());
+        }
+
+        for(int i=0; i<path.size(); i++) {
+
         }
     }
 
@@ -91,10 +109,12 @@ class Maze{
             path.removeLast();
 //            req(path.getLast().i, path.getLast().j);
         }else {
-            req(neighbours.getFirst().i, neighbours.getFirst().j);
+            req(neighbours.getFirst().getI(), neighbours.getFirst().getJ());
         }
         return true;
     }
+
+
     public static void main(String[] args) {
         Maze maze = new Maze(8);
 

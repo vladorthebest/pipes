@@ -1,5 +1,7 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.pipes;
 
+import sk.stuba.fei.uim.oop.game.pipes.board.Input;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,9 +12,10 @@ import java.io.File;
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;
     protected String path, pathDark;
-
     int cellWidth, cellHeight;
     private int rotationAngle = 0;
+    protected Input nowInput, nowOutput;
+
 
     protected BasePipe(int cellWidth, int cellHeight) {
         this.cellHeight = cellHeight;
@@ -44,6 +47,18 @@ public abstract class BasePipe extends JLabel {
         return rotatedImage;
     }
 
+    private void rotateInputs(){
+        System.out.println(nowInput + "  " + nowOutput);
+
+        if(nowOutput != null)
+            nowOutput = nowOutput.rotate();
+
+        if(nowInput != null)
+            nowInput = nowInput.rotate();
+
+        System.out.println(nowInput + "  " + nowOutput);
+    }
+
     protected void rotateImage() {
         Image originalImage = icon.getImage();
 
@@ -54,6 +69,7 @@ public abstract class BasePipe extends JLabel {
         ImageIcon rotatedIcon = new ImageIcon(rotatedImage.getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
 
         this.setIcon(rotatedIcon);
+        rotateInputs();
     }
 
     private void setAngle() {

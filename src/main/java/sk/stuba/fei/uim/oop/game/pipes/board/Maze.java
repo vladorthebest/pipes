@@ -22,7 +22,11 @@ class Maze{
             this.size = size;
         }
 
+        generateNewMaze();
 
+    }
+
+    public void generateNewMaze() {
         maze = new Cell[size][size];
         for(int i=0; i<size; i++){
             for(int j=0; j<size; j++){
@@ -34,11 +38,10 @@ class Maze{
         path.add(maze[startI][startJ]);
 //        req(path.getLast().i, path.getLast().j);
         while (path.getLast().getI() != finishI || path.getLast().getJ() != finishJ){
-          req(path.getLast().getI(), path.getLast().getJ());
+            req(path.getLast().getI(), path.getLast().getJ());
         }
 
         pipeSetting();
-
     }
 
     private void pipeSetting(){
@@ -56,7 +59,6 @@ class Maze{
                 path.get(i).setOutput(Input.RIGHT);
                 path.get(i+1).setInput(Input.LEFT);
             }
-            System.out.println(path.get(i).getOutput() + "  " + path.get(i+1).getInput());
         }
 
         for(int i=0; i<path.size(); i++) {
@@ -66,15 +68,25 @@ class Maze{
 
     private void createStartFinish(){
         startJ = random.nextInt(size-1);
-        startI = random.nextInt(size-1);
+        startI = 0;
 
         finishJ = random.nextInt(size-1);
-        finishI = random.nextInt(size-1);
+        finishI = size-1;
 
     }
 
     public Cell[][] getMaze(){
         return maze;
+    }
+
+    public boolean isComplete() {
+        for(int i=0; i<size; i++){
+            for(int j=0; j<size; j++){
+                if (!maze[i][j].isComplete())
+                    return false;
+            }
+        }
+        return true;
     }
 
 

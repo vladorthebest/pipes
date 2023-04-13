@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.pipes;
 
+import sk.stuba.fei.uim.oop.game.pipes.board.Cell;
 import sk.stuba.fei.uim.oop.game.pipes.board.Input;
 
 public class AnglePipe extends BasePipe {
@@ -11,13 +12,10 @@ public class AnglePipe extends BasePipe {
         this.nowOutput = Input.RIGHT;
     }
 
-    public AnglePipe(int cellWidth, int cellHeight) {
-        super(cellWidth, cellHeight);
+    public AnglePipe(int cellWidth, int cellHeight, Cell cell) {
+        super(cellWidth, cellHeight, cell);
         this.setImg();
     }
 
-    public AnglePipe() {
-        super();
-    }
 
 }

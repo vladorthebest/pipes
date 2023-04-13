@@ -4,9 +4,11 @@ import sk.stuba.fei.uim.oop.game.pipes.board.pipes.*;
 
 import java.util.Random;
 
-class Cell {
+public class Cell {
     private boolean isVisited = false;
     private Input input, output;
+    private Input nowInput, nowOutput;
+
     private int value;
     private int i, j;
     private TypePipe typePipe;
@@ -18,6 +20,15 @@ class Cell {
         this.j = j;
         this.value = random.nextInt(100);
     }
+
+    public void setNowInput(Input nowInput) {
+        this.nowInput = nowInput;
+    }
+
+    public void setNowOutput(Input nowOutput) {
+        this.nowOutput = nowOutput;
+    }
+
     public Cell(int value){
         this.value = 100;
     }
@@ -60,23 +71,35 @@ class Cell {
 
     public BasePipe createPipe(int cellWidth, int cellHeight){
         if(this.input == null && this.output == null){
-            this.pipe = new EmptyPipe(cellWidth, cellHeight);
+            this.pipe = new EmptyPipe(cellWidth, cellHeight, this);
             return pipe;
         }
 
         if(this.input == null || this.output == null){
-            this.pipe = new StartFinishPipe(cellWidth, cellHeight);
+            this.pipe = new StartFinishPipe(cellWidth, cellHeight, this);
+            updateNowInputs();
             return pipe;
         }
         if(
                 ((this.input == Input.TOP || this.input == Input.BOTTOM) &&   (this.output == Input.TOP || this.output == Input.BOTTOM)) ||
                         ((this.input == Input.RIGHT || this.input == Input.LEFT) &&   (this.output == Input.RIGHT || this.output == Input.LEFT))
         ) {
-            this.pipe = new LinePipe(cellWidth, cellHeight);
+            this.pipe = new LinePipe(cellWidth, cellHeight, this);
         } else {
-            this.pipe = new AnglePipe(cellWidth, cellHeight);
+            this.pipe = new AnglePipe(cellWidth, cellHeight, this);
         }
+        updateNowInputs();
+
         return pipe;
+    }
+
+    public void updateNowInputs(){
+        nowInput = this.pipe.getNowInput();
+        nowOutput = this.pipe.getNowOutput();
+    }
+
+    public boolean isComplete(){
+        return ((input == nowInput && output == nowOutput) || (output == nowInput && input == nowOutput));
     }
 
     public BasePipe getPipe() {

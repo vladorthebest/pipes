@@ -8,6 +8,8 @@ public class StartFinishPipe extends BasePipe {
     {
         this.path = "temp//StartFinishPipe.png";
         this.pathDark = "temp//StartFinishPipe_dark.png";
+        this.pathGreen = "temp//StartFinishPipe_correct.png";
+        this.pathRed = "temp//StartFinishPipe_incorrect.png";
         this.nowInput = Input.BOTTOM;
         this.nowOutput = null;
     }

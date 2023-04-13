@@ -12,7 +12,7 @@ import java.io.File;
 
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;
-    protected String path, pathDark;
+    protected String path, pathDark, pathGreen, pathRed;
     int cellWidth, cellHeight;
     private int rotationAngle = 0;
     protected Input nowInput, nowOutput;
@@ -101,5 +101,17 @@ public abstract class BasePipe extends JLabel {
 
     public Input getNowInput() {
         return nowInput;
+    }
+
+    public void setGreenIcon(){
+        this.icon = new ImageIcon(new ImageIcon(pathGreen).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.setIcon(icon);
+        setAngle();
+    }
+
+    public void setRedIcon(){
+        this.icon = new ImageIcon(new ImageIcon(pathRed).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.setIcon(icon);
+        setAngle();
     }
 }

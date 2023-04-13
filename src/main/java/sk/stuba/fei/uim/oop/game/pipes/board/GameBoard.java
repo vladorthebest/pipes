@@ -23,10 +23,12 @@ public class GameBoard extends JPanel {
 
 
     public boolean checkMazeComplete(){
-        for (int i = 0; i < maze.length; i++) {
-            for (int j = 0; j < maze.length; j++) {
-                if (!maze[i][j].isComplete())
-                    return false;
+        for (Cell cell: path){
+            if (!cell.isComplete()){
+                cell.getPipe().setRedIcon();
+                return false;
+            } else {
+                cell.getPipe().setGreenIcon();
             }
         }
 

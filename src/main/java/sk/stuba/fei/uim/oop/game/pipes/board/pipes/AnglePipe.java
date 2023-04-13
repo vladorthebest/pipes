@@ -8,6 +8,8 @@ public class AnglePipe extends BasePipe {
     {
         this.path = "temp//AnglePipe.png";
         this.pathDark = "temp//AnglePipe_dark.png";
+        this.pathGreen = "temp//AnglePipe_correct.png";
+        this.pathRed = "temp//AnglePipe_incorrect.png";
         this.nowInput = Input.TOP;
         this.nowOutput = Input.RIGHT;
     }

@@ -7,6 +7,8 @@ public class EmptyPipe extends BasePipe {
     {
         this.path = "temp//EmptyPipe.png";
         this.pathDark = "temp//EmptyPipe_dark.png";
+        this.pathGreen = "temp//EmptyPipe.png";
+        this.pathRed = "temp//EmptyPipe.png";
     }
 
     public EmptyPipe(int cellWidth, int cellHeight, Cell cell) {

@@ -1,25 +1,26 @@
 package sk.stuba.fei.uim.oop.game.pipes.menu;
 
 import sk.stuba.fei.uim.oop.game.pipes.Pipes;
-import sk.stuba.fei.uim.oop.game.pipes.board.pipes.MouseListener;
-import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.Listener;
+import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.KeyListener;
+import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.MouseListener;
 import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.StartButton;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MenuPanel extends JPanel{
     private StartButton startButton, resetButton;
     private JLabel scoreLabel;
-    private Listener listener;
+    private MouseListener mouseListener;
+    private KeyListener keyListener;
     private Pipes game;
     private int score = 0;
     public  MenuPanel(Pipes game) {
         this.game = game;
-        listener = new Listener(game.getGameBoard());
+        mouseListener = new MouseListener(game.getGameBoard());
+        keyListener = new KeyListener(game.getGameBoard());
         startButton = new StartButton("Check");
-        startButton.addActionListener(new Listener(game.getGameBoard()));
+        startButton.addActionListener(mouseListener);
+        startButton.addKeyListener(keyListener);
         this.add(startButton);
 
     }

@@ -2,11 +2,14 @@ package sk.stuba.fei.uim.oop.game.pipes.menu;
 
 import sk.stuba.fei.uim.oop.game.pipes.Pipes;
 import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.*;
+import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.KeyListener;
+import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.MouseListener;
+import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.SliderListener;
 
 import javax.swing.*;
 
 public class MenuPanel extends JPanel{
-    private StartButton startButton;
+    private CheckButton checkButton;
     private ResetButton resetButton;
     private JLabel scoreLabel;
     private MouseListener mouseListener;
@@ -18,29 +21,46 @@ public class MenuPanel extends JPanel{
 
     public  MenuPanel(Pipes game) {
         this.game = game;
-        this.scoreLabel = new JLabel();
 
-        mouseListener = new MouseListener(game);
+        createButtons();
+        createSlider();
+        createLevelLabel();
+
+        this.setFocusable(true);
+        this.requestFocusInWindow();
+
         keyListener = new KeyListener(game);
 
-        startButton = new StartButton("Check");
-        startButton.addActionListener(mouseListener);
-//        startButton.addKeyListener(keyListener);
         this.addKeyListener(keyListener);
+
+        this.add(scoreLabel);
+
+
+    }
+
+    private void createButtons(){
+        checkButton = new CheckButton();
+        checkButton.addActionListener(new MouseListener(game));
+        checkButton.addKeyListener(keyListener);
+
+        resetButton = new ResetButton();
+        resetButton.addActionListener(new MouseListener(game));
+        resetButton.addKeyListener(keyListener);
+
+        this.add(checkButton);
+        this.add(resetButton);
+
+    }
+
+    private void createSlider() {
         this.slider = new Slider();
         this.add(slider);
-        this.slider.addChangeListener(new SliderListener(game.getGameBoard()));
+        this.slider.addChangeListener(new SliderListener(game));
+    }
 
-        resetButton = new ResetButton("Reset");
-        resetButton.addActionListener(mouseListener);
-//        resetButton.addKeyListener(keyListener);
-        this.setFocusable(true);
-        this.add(startButton);
-        this.add(resetButton);
-        this.add(scoreLabel);
+    private void createLevelLabel(){
+        this.scoreLabel = new JLabel();
         updateTextLabel();
-        System.out.println(slider.getValue());
-
     }
 
     public void setScore(int score){
@@ -63,7 +83,7 @@ public class MenuPanel extends JPanel{
     }
 
     public void startGame(){
-        startButton.setEnabled(false);
+        checkButton.setEnabled(false);
         resetButton.setEnabled(true);
     }
 }

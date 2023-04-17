@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.game.pipes.menu.buttons;
+package sk.stuba.fei.uim.oop.game.pipes.menu.listeners;
 
 import sk.stuba.fei.uim.oop.game.pipes.Pipes;
 import sk.stuba.fei.uim.oop.game.pipes.board.GameBoard;
@@ -27,5 +27,6 @@ public class KeyListener extends KeyAdapter {
             game.dispose();
             System.exit(0);
         }
+
     }
 }

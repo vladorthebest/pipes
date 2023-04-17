@@ -2,10 +2,10 @@ package sk.stuba.fei.uim.oop.game.pipes.menu.buttons;
 
 import javax.swing.*;
 
-public class ResetButton extends JButton {
-    private final String name = "Reset";
+public class CheckButton extends JButton {
+    private final String name = "Check";
 
-    public ResetButton() {
+    public CheckButton() {
         this.setText(name);
     }
 }

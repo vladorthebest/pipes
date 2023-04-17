@@ -1,7 +1,9 @@
-package sk.stuba.fei.uim.oop.game.pipes.menu.buttons;
+package sk.stuba.fei.uim.oop.game.pipes.menu.listeners;
 
 import sk.stuba.fei.uim.oop.game.pipes.Pipes;
 import sk.stuba.fei.uim.oop.game.pipes.board.GameBoard;
+import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.ResetButton;
+import sk.stuba.fei.uim.oop.game.pipes.menu.buttons.CheckButton;
 
 import java.awt.event.*;
 
@@ -15,12 +17,13 @@ public class MouseListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e)  {
-        if (e.getSource() instanceof StartButton){
+        if (e.getSource() instanceof CheckButton){
             if(gameBoard.checkMazeComplete())
                 game.getMenuPanel().nextLevel();
         } else if (e.getSource() instanceof ResetButton) {
             gameBoard.setSizeBoard(10);
         }
+        game.getMenuPanel().requestFocusInWindow();
     }
 
 

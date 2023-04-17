@@ -15,6 +15,11 @@ public class GameBoard extends JPanel {
     LinkedList<Cell> path;
     private GridLayout layout;
     private Random random = new Random();
+    private int lvl = 0;
+
+    public int getLvl() {
+        return lvl;
+    }
 
     public GameBoard(){
         layout = new GridLayout(sizeBoard, sizeBoard);
@@ -44,6 +49,7 @@ public class GameBoard extends JPanel {
     }
 
     public void genereteNewMaze(){
+        lvl++;
         if(maze != null){
             for (int i = 0; i < maze.length; i++) {
                 for (int j = 0; j < maze.length; j++) {

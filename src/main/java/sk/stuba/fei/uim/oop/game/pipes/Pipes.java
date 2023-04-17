@@ -30,6 +30,10 @@ public class Pipes extends JFrame{
         return gameBoard;
     }
 
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
+    }
+
     //    public void actionPerformed(ActionEvent e) {
 //        if (e.getSource() == startButton) {
 //            startGame();

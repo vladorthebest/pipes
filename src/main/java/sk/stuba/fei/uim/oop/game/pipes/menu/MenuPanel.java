@@ -12,28 +12,33 @@ public class MenuPanel extends JPanel{
     private MouseListener mouseListener;
     private KeyListener keyListener;
     private Pipes game;
-    private int score = 0;
+    private int score = 1;
 
     private Slider slider;
 
     public  MenuPanel(Pipes game) {
         this.game = game;
-        mouseListener = new MouseListener(game.getGameBoard());
+        this.scoreLabel = new JLabel();
+
+        mouseListener = new MouseListener(game);
         keyListener = new KeyListener(game.getGameBoard());
+
         startButton = new StartButton("Check");
         startButton.addActionListener(mouseListener);
         startButton.addKeyListener(keyListener);
+
         this.slider = new Slider();
         this.add(slider);
         this.slider.addChangeListener(new SliderListener(game.getGameBoard()));
-        ResetMouseListener resetMouseListener = new ResetMouseListener(game.getGameBoard(), slider);
+
         resetButton = new ResetButton("Reset");
         resetButton.addActionListener(mouseListener);
         resetButton.addKeyListener(keyListener);
 
         this.add(startButton);
         this.add(resetButton);
-
+        this.add(scoreLabel);
+        updateTextLabel();
         System.out.println(slider.getValue());
 
     }
@@ -47,9 +52,14 @@ public class MenuPanel extends JPanel{
         this.game.getGameBoard().setSizeBoard(slider.getValue());
     }
 
+    public void nextLevel() {
+        this.score++;
+        updateTextLabel();
+        game.getGameBoard().genereteNewMaze();
+    }
 
     private void updateTextLabel() {
-        scoreLabel.setText("Score: " + this.score);
+        scoreLabel.setText("Level: " + score);
     }
 
     public void startGame(){

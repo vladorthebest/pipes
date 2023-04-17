@@ -12,13 +12,13 @@ public class MouseListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e)  {
-        if(gameBoard.checkMazeComplete())
-            gameBoard.genereteNewMaze();
+        if (e.getSource() instanceof StartButton){
+            if(gameBoard.checkMazeComplete())
+                gameBoard.genereteNewMaze();
+        } else if (e.getSource() instanceof ResetButton) {
+            gameBoard.setSizeBoard(10);
+        }
     }
 
-    public void actionPerformedEnter() {
-        if(gameBoard.checkMazeComplete())
-            gameBoard.genereteNewMaze();
-    }
 
 }

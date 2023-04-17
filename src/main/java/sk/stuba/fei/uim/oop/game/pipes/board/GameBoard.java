@@ -20,10 +20,15 @@ public class GameBoard extends JPanel {
         layout = new GridLayout(sizeBoard, sizeBoard);
         this.setLayout(layout);
         genereteNewMaze();
-        randomlyRotated();
 
     }
 
+    public void setSizeBoard(int sizeBoard) {
+        this.sizeBoard = sizeBoard;
+        layout = new GridLayout(sizeBoard, sizeBoard);
+        this.setLayout(layout);
+        genereteNewMaze();
+    }
 
     public boolean checkMazeComplete(){
         for (Cell cell: path){

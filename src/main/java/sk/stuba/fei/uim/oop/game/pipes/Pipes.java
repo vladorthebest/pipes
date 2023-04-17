@@ -9,21 +9,12 @@ import javax.swing.*;
 
 public class Pipes extends JFrame{
 
-    private static final long serialVersionUID = 1L;
-
-    private JPanel boardPanel, buttonsPanel;
-    private JButton startButton, resetButton;
-    private JLabel scoreLabel;
-    private Timer timer;
-
-    private int currentPipeX, currentPipeY;
-
     private MenuPanel menuPanel;
     private GameBoard gameBoard;
 
     public Pipes() {
         setTitle("Pipes");
-        setSize(600, 600);
+        setSize(700, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         gameBoard = new GameBoard();
 

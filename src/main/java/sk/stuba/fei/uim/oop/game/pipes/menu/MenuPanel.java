@@ -21,20 +21,20 @@ public class MenuPanel extends JPanel{
         this.scoreLabel = new JLabel();
 
         mouseListener = new MouseListener(game);
-        keyListener = new KeyListener(game.getGameBoard());
+        keyListener = new KeyListener(game);
 
         startButton = new StartButton("Check");
         startButton.addActionListener(mouseListener);
-        startButton.addKeyListener(keyListener);
-
+//        startButton.addKeyListener(keyListener);
+        this.addKeyListener(keyListener);
         this.slider = new Slider();
         this.add(slider);
         this.slider.addChangeListener(new SliderListener(game.getGameBoard()));
 
         resetButton = new ResetButton("Reset");
         resetButton.addActionListener(mouseListener);
-        resetButton.addKeyListener(keyListener);
-
+//        resetButton.addKeyListener(keyListener);
+        this.setFocusable(true);
         this.add(startButton);
         this.add(resetButton);
         this.add(scoreLabel);

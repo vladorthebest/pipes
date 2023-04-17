@@ -15,13 +15,10 @@ public class GameBoard extends JPanel {
     LinkedList<Cell> path;
     private GridLayout layout;
     private Random random = new Random();
-    private int lvl = 0;
-
-    public int getLvl() {
-        return lvl;
-    }
+    Maze mazeGenerator;
 
     public GameBoard(){
+        mazeGenerator = new Maze(sizeBoard);
         layout = new GridLayout(sizeBoard, sizeBoard);
         this.setLayout(layout);
         genereteNewMaze();
@@ -37,20 +34,10 @@ public class GameBoard extends JPanel {
 
 
     public boolean checkMazeComplete(){
-        for (Cell cell: path){
-            if (!cell.isComplete()){
-                cell.getPipe().setRedIcon();
-                return false;
-            } else {
-                cell.getPipe().setGreenIcon();
-            }
-        }
-
-        return true;
+        return mazeGenerator.checkMazeComplete();
     }
 
     public void genereteNewMaze(){
-        lvl++;
         if(maze != null){
             for (int i = 0; i < maze.length; i++) {
                 for (int j = 0; j < maze.length; j++) {
@@ -60,9 +47,7 @@ public class GameBoard extends JPanel {
                 }
             }
         }
-
-
-        Maze mazeGenerator = new Maze(sizeBoard);
+        mazeGenerator = new Maze(sizeBoard);
         this.maze = mazeGenerator.getMaze();
         this.path = mazeGenerator.getPath();
 

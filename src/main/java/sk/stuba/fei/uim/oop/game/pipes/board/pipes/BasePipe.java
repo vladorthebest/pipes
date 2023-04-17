@@ -2,13 +2,12 @@ package sk.stuba.fei.uim.oop.game.pipes.board.pipes;
 
 import sk.stuba.fei.uim.oop.game.pipes.board.Cell;
 import sk.stuba.fei.uim.oop.game.pipes.board.Input;
+import sk.stuba.fei.uim.oop.game.pipes.board.listeners.MouseListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
-import java.io.File;
 
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;

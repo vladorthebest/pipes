@@ -1,19 +1,18 @@
 package sk.stuba.fei.uim.oop.game.pipes.board;
 
+import sk.stuba.fei.uim.oop.game.pipes.board.pipes.EmptyPipe;
+
 import java.util.LinkedList;
 import java.util.Random;
 
 class Maze{
     Cell[][] maze;
     LinkedList<Cell> path = new LinkedList<>();
-    int size = 8;
+    int size;
     Random random = new Random();
-    int startJ, startI;
-    int finishI, finishJ;
+    int startJ, startI, finishI, finishJ;
 
-    public LinkedList<Cell> getPath() {
-        return path;
-    }
+
 
     public Maze(int size){
         if(size<3){
@@ -36,7 +35,6 @@ class Maze{
         createStartFinish();
 
         path.add(maze[startI][startJ]);
-//        req(path.getLast().i, path.getLast().j);
         while (path.getLast().getI() != finishI || path.getLast().getJ() != finishJ){
             req(path.getLast().getI(), path.getLast().getJ());
         }
@@ -72,23 +70,15 @@ class Maze{
 
         finishJ = random.nextInt(size-1);
         finishI = size-1;
-
     }
 
     public Cell[][] getMaze(){
         return maze;
     }
 
-    public boolean isComplete() {
-        for(int i=0; i<size; i++){
-            for(int j=0; j<size; j++){
-                if (!maze[i][j].isComplete())
-                    return false;
-            }
-        }
-        return true;
+    public LinkedList<Cell> getPath() {
+        return path;
     }
-
 
     public boolean req(int nowI, int nowJ){
         if(!path.contains(maze[nowI][nowJ]))
@@ -117,22 +107,132 @@ class Maze{
             neighbours.add(maze[nowI][nowJ+1]);
         }
         neighbours.sort((a, b) -> a.getValue() - b.getValue());
-//        for(Cell cell:neighbours){
-//            System.out.print(cell.getValue() + "  ");
-//        }
-//        System.out.println();
+;
         if(neighbours.isEmpty()){
             path.removeLast();
-//            req(path.getLast().i, path.getLast().j);
         }else {
             req(neighbours.getFirst().getI(), neighbours.getFirst().getJ());
         }
         return true;
     }
 
+    public boolean checkMazeComplete(){
+        return checkCellComplete(path.getFirst(), path.getFirst().getPipe().getNowInput());
 
-    public static void main(String[] args) {
-        Maze maze = new Maze(8);
+    }
+    public boolean checkCellComplete(Cell cell, Input input){
+        int i = cell.getI();
+        int j = cell.getJ();
 
+        if(i == finishI && j == finishJ){
+            return true;
+        }
+        switch (input) {
+            case TOP :
+                if (i - 1 < 0) {
+                    cell.getPipe().setRedIcon();
+                    return false;
+                } else {
+                    i--;
+                    if (maze[i][j].getPipe() instanceof EmptyPipe){
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                    if (maze[i][j].getPipe().getNowInput() == Input.BOTTOM) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
+
+                    } else if (maze[i][j].getPipe().getNowOutput() == Input.BOTTOM) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
+                    } else {
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                }
+
+            case LEFT:
+                if (j - 1 < 0) {
+                    cell.getPipe().setRedIcon();
+                    return false;
+                } else {
+                    j--;
+                    if (maze[i][j].getPipe() instanceof EmptyPipe){
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                    if (maze[i][j].getPipe().getNowInput() == Input.RIGHT) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
+
+                    } else if (maze[i][j].getPipe().getNowOutput() == Input.RIGHT) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
+                    } else {
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                }
+            case RIGHT:
+                if (j + 1 > size - 1) {
+                    cell.getPipe().setRedIcon();
+                    return false;
+                } else {
+                    j++;
+                    if (maze[i][j].getPipe() instanceof EmptyPipe){
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                    if (maze[i][j].getPipe().getNowInput() == Input.LEFT) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
+
+                    } else if (maze[i][j].getPipe().getNowOutput() == Input.LEFT) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
+                    } else {
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                }
+
+            case BOTTOM:
+                if (i + 1 > size - 1) {
+                    cell.getPipe().setRedIcon();
+                    return false;
+                } else {
+                    i++;
+                    if (maze[i][j].getPipe() instanceof EmptyPipe){
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                    if (maze[i][j].getPipe().getNowInput() == Input.TOP) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
+
+                    } else if (maze[i][j].getPipe().getNowOutput() == Input.TOP) {
+                        cell.getPipe().setGreenIcon();
+                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
+                    } else {
+                        cell.getPipe().setRedIcon();
+                        return false;
+                    }
+                }
+        }
+
+        return false;
+    }
+
+    private boolean checkInput(Cell cell, Input input){
+        if (cell.getPipe() instanceof EmptyPipe){
+            return false;
+        }
+        if (cell.getPipe().getNowInput() == input) {
+            return true;
+        } else if (cell.getPipe().getNowInput() == input) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -32,7 +32,7 @@ public abstract class BasePipe extends JLabel {
         this.setBackground(Color.WHITE);
     }
 
-    private static Image rotate(Image image, double degrees) {
+    private Image rotate(Image image, double degrees) {
         int width = image.getWidth(null);
         int height = image.getHeight(null);
 
@@ -60,7 +60,7 @@ public abstract class BasePipe extends JLabel {
         cell.updateNowInputs();
     }
 
-    protected void rotateImage() {
+    public void rotateImage() {
         Image originalImage = icon.getImage();
 
         rotationAngle += 90; // увеличиваем угол поворота на 90 градусов

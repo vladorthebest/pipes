@@ -6,6 +6,7 @@ import sk.stuba.fei.uim.oop.game.pipes.board.pipes.LinePipe;
 import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Random;
 
 public class GameBoard extends JPanel {
     int sizeBoard = 8;
@@ -13,11 +14,13 @@ public class GameBoard extends JPanel {
     Cell[][] maze;
     LinkedList<Cell> path;
     private GridLayout layout;
+    private Random random = new Random();
 
     public GameBoard(){
         layout = new GridLayout(sizeBoard, sizeBoard);
         this.setLayout(layout);
         genereteNewMaze();
+        randomlyRotated();
 
     }
 
@@ -59,8 +62,20 @@ public class GameBoard extends JPanel {
                 this.add(pipe);
             }
         }
+        randomlyRotated();
         this.revalidate();
         this.repaint();
     }
 
+
+    private void randomlyRotated() {
+        for( Cell[] row : maze ){
+            for( Cell cell : row){
+                int n = random.nextInt(4);
+                for(int i=0; i<=n; i++){
+                    cell.getPipe().rotateImage();
+                }
+            }
+        }
+    }
 }

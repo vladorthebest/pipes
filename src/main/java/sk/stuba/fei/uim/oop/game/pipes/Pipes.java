@@ -31,7 +31,7 @@ public class Pipes extends JFrame{
         menuPanel = new MenuPanel(this);
         add(gameBoard, BorderLayout.CENTER);
         add(menuPanel, BorderLayout.SOUTH);
-
+        setResizable(false);
         setVisible(true);
     }
 

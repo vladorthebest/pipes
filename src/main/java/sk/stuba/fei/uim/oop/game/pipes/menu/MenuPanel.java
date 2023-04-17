@@ -30,26 +30,19 @@ public class MenuPanel extends JPanel{
         this.requestFocusInWindow();
 
         keyListener = new KeyListener(game);
-
         this.addKeyListener(keyListener);
-
-        this.add(scoreLabel);
-
-
     }
 
     private void createButtons(){
+        mouseListener = new MouseListener(game);
+
         checkButton = new CheckButton();
-        checkButton.addActionListener(new MouseListener(game));
-        checkButton.addKeyListener(keyListener);
+        checkButton.addActionListener(mouseListener);
+        this.add(checkButton);
 
         resetButton = new ResetButton();
-        resetButton.addActionListener(new MouseListener(game));
-        resetButton.addKeyListener(keyListener);
-
-        this.add(checkButton);
+        resetButton.addActionListener(mouseListener);
         this.add(resetButton);
-
     }
 
     private void createSlider() {
@@ -61,15 +54,7 @@ public class MenuPanel extends JPanel{
     private void createLevelLabel(){
         this.scoreLabel = new JLabel();
         updateTextLabel();
-    }
-
-    public void setScore(int score){
-        this.score = score;
-        updateTextLabel();
-    }
-
-    private void setSize(){
-        this.game.getGameBoard().setSizeBoard(slider.getValue());
+        this.add(scoreLabel);
     }
 
     public void nextLevel() {
@@ -82,8 +67,4 @@ public class MenuPanel extends JPanel{
         scoreLabel.setText("Level: " + score);
     }
 
-    public void startGame(){
-        checkButton.setEnabled(false);
-        resetButton.setEnabled(true);
-    }
 }

@@ -21,7 +21,7 @@ public class MouseListener implements ActionListener {
             if(gameBoard.checkMazeComplete())
                 game.getMenuPanel().nextLevel();
         } else if (e.getSource() instanceof ResetButton) {
-            gameBoard.setSizeBoard(10);
+            gameBoard.genereteNewMaze();
         }
         game.getMenuPanel().requestFocusInWindow();
     }

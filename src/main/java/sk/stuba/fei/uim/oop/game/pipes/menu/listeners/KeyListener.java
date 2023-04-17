@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 public class KeyListener extends KeyAdapter {
     private GameBoard gameBoard;
     private Pipes game;
+
     public KeyListener(Pipes game) {
         this.gameBoard = game.getGameBoard();
         this.game = game;

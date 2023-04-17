@@ -35,6 +35,7 @@ public class GameBoard extends JPanel {
         genereteNewMaze();
     }
 
+
     public boolean checkMazeComplete(){
         for (Cell cell: path){
             if (!cell.isComplete()){

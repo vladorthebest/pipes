@@ -6,10 +6,10 @@ import sk.stuba.fei.uim.oop.game.pipes.board.Input;
 public class LinePipe extends BasePipe {
 
     {
-        this.path = "temp//LinePipe.png";
-        this.pathDark = "temp//LinePipe_dark.png";
-        this.pathGreen = "temp//LinePipe_correct.png";
-        this.pathRed = "temp//LinePipe_incorrect.png";
+        this.path = "LinePipe.png";
+        this.pathDark = "LinePipe_dark.png";
+        this.pathGreen = "LinePipe_correct.png";
+        this.pathRed = "LinePipe_incorrect.png";
         this.nowInput = Input.TOP;
         this.nowOutput = Input.BOTTOM;
     }

@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;
@@ -26,9 +27,14 @@ public abstract class BasePipe extends JLabel {
     }
 
     protected void setImg() {
-        this.icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+
+        this.icon = new ImageIcon(new ImageIcon(getUrlImg(path)).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
         this.setIcon(icon);
         this.setBackground(Color.WHITE);
+    }
+
+    private URL getUrlImg(String path) {
+        return getClass().getClassLoader().getResource(path);
     }
 
     private Image rotate(Image image, double degrees) {
@@ -83,13 +89,13 @@ public abstract class BasePipe extends JLabel {
     }
 
     public void setDarkIcon(){
-        this.icon = new ImageIcon(new ImageIcon(pathDark).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.icon = new ImageIcon(new ImageIcon(getUrlImg(pathDark)).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
         this.setIcon(icon);
         setAngle();
     }
 
     public void setCommonIcon(){
-        this.icon = new ImageIcon(new ImageIcon(path).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.icon = new ImageIcon(new ImageIcon(getUrlImg(path)).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
         this.setIcon(icon);
         setAngle();
     }
@@ -103,13 +109,13 @@ public abstract class BasePipe extends JLabel {
     }
 
     public void setGreenIcon(){
-        this.icon = new ImageIcon(new ImageIcon(pathGreen).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.icon = new ImageIcon(new ImageIcon(getUrlImg(pathGreen)).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
         this.setIcon(icon);
         setAngle();
     }
 
     public void setRedIcon(){
-        this.icon = new ImageIcon(new ImageIcon(pathRed).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
+        this.icon = new ImageIcon(new ImageIcon(getUrlImg(pathRed)).getImage().getScaledInstance(cellWidth, cellHeight, Image.SCALE_SMOOTH));
         this.setIcon(icon);
         setAngle();
     }

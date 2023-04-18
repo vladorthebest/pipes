@@ -5,10 +5,10 @@ import sk.stuba.fei.uim.oop.game.pipes.board.Cell;
 public class EmptyPipe extends BasePipe {
 
     {
-        this.path = "temp//EmptyPipe.png";
-        this.pathDark = "temp//EmptyPipe_dark.png";
-        this.pathGreen = "temp//EmptyPipe.png";
-        this.pathRed = "temp//EmptyPipe.png";
+        this.path = "EmptyPipe.png";
+        this.pathDark = "EmptyPipe_dark.png";
+        this.pathGreen = "EmptyPipe.png";
+        this.pathRed = "EmptyPipe.png";
     }
 
     public EmptyPipe(int cellWidth, int cellHeight, Cell cell) {

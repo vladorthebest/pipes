@@ -8,4 +8,10 @@ public enum Input {
         int nextIndex = (currentIndex + 1) % values().length;
         return values()[nextIndex];
     }
+
+    public Input mirror() {
+        int currentIndex = this.ordinal();
+        int nextIndex = (currentIndex + 2) % values().length;
+        return values()[nextIndex];
+    }
 }

@@ -120,118 +120,64 @@ class Maze{
         return checkCellComplete(path.getFirst(), path.getFirst().getPipe().getNowInput());
 
     }
-    public boolean checkCellComplete(Cell cell, Input input){
+    public boolean checkCellComplete(Cell cell, Input output){
         int i = cell.getI();
         int j = cell.getJ();
 
         if(i == finishI && j == finishJ){
             return true;
         }
-        switch (input) {
+
+        switch (output) {
             case TOP :
-                if (i - 1 < 0) {
+                i--;
+                if (i < 0) {
                     cell.getPipe().setRedIcon();
                     return false;
-                } else {
-                    i--;
-                    if (maze[i][j].getPipe() instanceof EmptyPipe){
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
-                    if (maze[i][j].getPipe().getNowInput() == Input.BOTTOM) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
-
-                    } else if (maze[i][j].getPipe().getNowOutput() == Input.BOTTOM) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
-                    } else {
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
                 }
+                break;
 
             case LEFT:
-                if (j - 1 < 0) {
+                j--;
+                if (j < 0) {
                     cell.getPipe().setRedIcon();
                     return false;
-                } else {
-                    j--;
-                    if (maze[i][j].getPipe() instanceof EmptyPipe){
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
-                    if (maze[i][j].getPipe().getNowInput() == Input.RIGHT) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
-
-                    } else if (maze[i][j].getPipe().getNowOutput() == Input.RIGHT) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
-                    } else {
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
                 }
+                break;
+
             case RIGHT:
-                if (j + 1 > size - 1) {
+                j++;
+                if (j > size - 1) {
                     cell.getPipe().setRedIcon();
                     return false;
-                } else {
-                    j++;
-                    if (maze[i][j].getPipe() instanceof EmptyPipe){
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
-                    if (maze[i][j].getPipe().getNowInput() == Input.LEFT) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
-
-                    } else if (maze[i][j].getPipe().getNowOutput() == Input.LEFT) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
-                    } else {
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
                 }
+                break;
 
             case BOTTOM:
-                if (i + 1 > size - 1) {
+                i++;
+                if (i > size - 1) {
                     cell.getPipe().setRedIcon();
                     return false;
-                } else {
-                    i++;
-                    if (maze[i][j].getPipe() instanceof EmptyPipe){
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
-                    if (maze[i][j].getPipe().getNowInput() == Input.TOP) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowOutput());
-
-                    } else if (maze[i][j].getPipe().getNowOutput() == Input.TOP) {
-                        cell.getPipe().setGreenIcon();
-                        return checkCellComplete(maze[i][j], maze[i][j].getPipe().getNowInput());
-                    } else {
-                        cell.getPipe().setRedIcon();
-                        return false;
-                    }
                 }
-        }
+                break;
 
-        return false;
+        }
+        return checkNextInput(cell, maze[i][j], output.mirror());
     }
 
-    private boolean checkInput(Cell cell, Input input){
+    private boolean checkNextInput(Cell prevCell, Cell cell, Input input){
         if (cell.getPipe() instanceof EmptyPipe){
+            prevCell.getPipe().setRedIcon();
             return false;
         }
         if (cell.getPipe().getNowInput() == input) {
-            return true;
-        } else if (cell.getPipe().getNowInput() == input) {
-            return true;
+            prevCell.getPipe().setGreenIcon();
+            return checkCellComplete(cell, cell.getPipe().getNowOutput());
+        } else if (cell.getPipe().getNowOutput() == input) {
+            prevCell.getPipe().setGreenIcon();
+            return checkCellComplete(cell, cell.getPipe().getNowInput());
         } else {
+            prevCell.getPipe().setRedIcon();
             return false;
         }
     }

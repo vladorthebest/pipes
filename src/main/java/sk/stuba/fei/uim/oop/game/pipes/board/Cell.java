@@ -70,16 +70,14 @@ public class Cell {
     }
 
     public BasePipe createPipe(int cellWidth, int cellHeight){
+        if (pipe != null){
+            return pipe;
+        }
         if(this.input == null && this.output == null){
             this.pipe = new EmptyPipe(cellWidth, cellHeight, this);
             return pipe;
         }
 
-        if(this.input == null || this.output == null){
-            this.pipe = new StartFinishPipe(cellWidth, cellHeight, this);
-            updateNowInputs();
-            return pipe;
-        }
         if(
                 ((this.input == Input.TOP || this.input == Input.BOTTOM) &&   (this.output == Input.TOP || this.output == Input.BOTTOM)) ||
                         ((this.input == Input.RIGHT || this.input == Input.LEFT) &&   (this.output == Input.RIGHT || this.output == Input.LEFT))
@@ -93,13 +91,22 @@ public class Cell {
         return pipe;
     }
 
+    public BasePipe setStartPipe(int cellWidth, int cellHeight){
+        this.pipe = new StartPipe(cellWidth, cellHeight, this);
+        updateNowInputs();
+        return pipe;
+    }
+
+    public BasePipe setFinishPipe(int cellWidth, int cellHeight){
+        this.pipe = new FinishPipe(cellWidth, cellHeight, this);
+        updateNowInputs();
+        return pipe;
+    }
+
+
     public void updateNowInputs(){
         nowInput = this.pipe.getNowInput();
         nowOutput = this.pipe.getNowOutput();
-    }
-
-    public boolean isComplete(){
-        return ((input == nowInput && output == nowOutput) || (output == nowInput && input == nowOutput));
     }
 
     public BasePipe getPipe() {

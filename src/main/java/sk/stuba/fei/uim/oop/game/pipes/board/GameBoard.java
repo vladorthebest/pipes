@@ -51,6 +51,9 @@ public class GameBoard extends JPanel {
         this.maze = mazeGenerator.getMaze();
         this.path = mazeGenerator.getPath();
 
+        this.mazeGenerator.getStartCell().setStartPipe(50, 50);
+        this.mazeGenerator.getFinishCell().setFinishPipe(50, 50);
+
         for (int i = 0; i < maze.length; i++) {
             for (int j = 0; j < maze.length; j++) {
                 BasePipe pipe;

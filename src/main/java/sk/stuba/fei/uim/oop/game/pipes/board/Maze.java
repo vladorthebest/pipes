@@ -70,6 +70,7 @@ class Maze{
 
         finishJ = random.nextInt(size-1);
         finishI = size-1;
+
     }
 
     public Cell[][] getMaze(){
@@ -116,6 +117,13 @@ class Maze{
         return true;
     }
 
+    public Cell getStartCell(){
+        return maze[startI][startJ];
+    }
+
+    public Cell getFinishCell(){
+        return maze[finishI][finishJ];
+    }
     public boolean checkMazeComplete(){
         return checkCellComplete(path.getFirst(), path.getFirst().getPipe().getNowInput());
 

@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop.game.pipes;
 
 import sk.stuba.fei.uim.oop.game.pipes.board.GameBoard;
 import sk.stuba.fei.uim.oop.game.pipes.menu.MenuPanel;
-import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.KeyListener;
 
 import java.awt.*;
 import javax.swing.*;
@@ -17,7 +16,7 @@ public class Pipes extends JFrame {
         setTitle("Pipes");
         setSize(700, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setLayout(new BorderLayout());
         gameBoard = new GameBoard();
         menuPanel = new MenuPanel(this);
 

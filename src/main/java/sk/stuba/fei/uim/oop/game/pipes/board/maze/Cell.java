@@ -1,37 +1,25 @@
-package sk.stuba.fei.uim.oop.game.pipes.board;
+package sk.stuba.fei.uim.oop.game.pipes.board.maze;
 
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.*;
 
 import java.util.Random;
 
 public class Cell {
-    private boolean isVisited = false;
+    private boolean isVisited;
     private Input input, output;
-    private Input nowInput, nowOutput;
 
     private int value;
     private int i, j;
-    private TypePipe typePipe;
     private BasePipe pipe;
-    private int cellWidth, cellHeight;
-    Random random = new Random();
+
     public Cell(int i, int j){
+        Random random = new Random();
+        isVisited = false;
         this.i = i;
         this.j = j;
         this.value = random.nextInt(100);
     }
 
-    public void setNowInput(Input nowInput) {
-        this.nowInput = nowInput;
-    }
-
-    public void setNowOutput(Input nowOutput) {
-        this.nowOutput = nowOutput;
-    }
-
-    public Cell(int value){
-        this.value = 100;
-    }
     public int getValue() {
         return value;
     }
@@ -61,13 +49,6 @@ public class Cell {
         return j;
     }
 
-    public Input getInput(){
-        return this.input;
-    }
-
-    public Input getOutput() {
-        return output;
-    }
 
     public BasePipe createPipe(int cellWidth, int cellHeight){
         if (pipe != null){
@@ -78,10 +59,7 @@ public class Cell {
             return pipe;
         }
 
-        if(
-                ((this.input == Input.TOP || this.input == Input.BOTTOM) &&   (this.output == Input.TOP || this.output == Input.BOTTOM)) ||
-                        ((this.input == Input.RIGHT || this.input == Input.LEFT) &&   (this.output == Input.RIGHT || this.output == Input.LEFT))
-        ) {
+        if( this.input == this.output.mirror()) {
             this.pipe = new LinePipe(cellWidth, cellHeight, this);
         } else {
             this.pipe = new AnglePipe(cellWidth, cellHeight, this);
@@ -91,22 +69,18 @@ public class Cell {
         return pipe;
     }
 
-    public BasePipe setStartPipe(int cellWidth, int cellHeight){
+    public void setStartPipe(int cellWidth, int cellHeight){
         this.pipe = new StartPipe(cellWidth, cellHeight, this);
         updateNowInputs();
-        return pipe;
     }
 
-    public BasePipe setFinishPipe(int cellWidth, int cellHeight){
+    public void setFinishPipe(int cellWidth, int cellHeight){
         this.pipe = new FinishPipe(cellWidth, cellHeight, this);
         updateNowInputs();
-        return pipe;
     }
 
 
     public void updateNowInputs(){
-        nowInput = this.pipe.getNowInput();
-        nowOutput = this.pipe.getNowOutput();
     }
 
     public BasePipe getPipe() {

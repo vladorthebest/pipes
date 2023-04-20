@@ -1,7 +1,7 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.pipes;
 
-import sk.stuba.fei.uim.oop.game.pipes.board.Cell;
-import sk.stuba.fei.uim.oop.game.pipes.board.Input;
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Cell;
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Input;
 import sk.stuba.fei.uim.oop.game.pipes.board.listeners.MouseListener;
 
 import javax.swing.*;
@@ -13,13 +13,14 @@ import java.net.URL;
 public abstract class BasePipe extends JLabel {
     protected ImageIcon icon;
     protected String path, pathDark, pathGreen, pathRed;
-    int cellWidth, cellHeight;
-    private int rotationAngle = 0;
+    private int cellWidth, cellHeight;
+    private int rotationAngle;
     protected Input nowInput, nowOutput;
     private Cell cell;
 
 
     protected BasePipe(int cellWidth, int cellHeight, Cell cell) {
+        this.rotationAngle = 0;
         this.cell = cell;
         this.cellHeight = cellHeight;
         this.cellWidth = cellWidth;

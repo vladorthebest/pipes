@@ -7,48 +7,46 @@ import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.MouseListener;
 import sk.stuba.fei.uim.oop.game.pipes.menu.listeners.SliderListener;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class MenuPanel extends JPanel{
-    private CheckButton checkButton;
-    private ResetButton resetButton;
     private JLabel scoreLabel;
-    private MouseListener mouseListener;
-    private KeyListener keyListener;
     private Pipes game;
-    private int score = 1;
-
-    private Slider slider;
+    private int score;
 
     public  MenuPanel(Pipes game) {
+        this.score = 1;
         this.game = game;
 
         createButtons();
         createSlider();
         createLevelLabel();
 
+        this.setLayout(new FlowLayout(FlowLayout.CENTER, 30, 10));
+
         this.setFocusable(true);
         this.requestFocusInWindow();
 
-        keyListener = new KeyListener(game);
+        KeyListener keyListener = new KeyListener(game);
         this.addKeyListener(keyListener);
     }
 
     private void createButtons(){
-        mouseListener = new MouseListener(game);
+        MouseListener mouseListener = new MouseListener(game);
 
-        checkButton = new CheckButton();
+        CheckButton checkButton = new CheckButton();
         checkButton.addActionListener(mouseListener);
         this.add(checkButton);
 
-        resetButton = new ResetButton();
+        ResetButton resetButton = new ResetButton();
         resetButton.addActionListener(mouseListener);
         this.add(resetButton);
     }
 
     private void createSlider() {
-        this.slider = new Slider();
+        Slider slider = new Slider();
         this.add(slider);
-        this.slider.addChangeListener(new SliderListener(game));
+        slider.addChangeListener(new SliderListener(game));
     }
 
     private void createLevelLabel(){

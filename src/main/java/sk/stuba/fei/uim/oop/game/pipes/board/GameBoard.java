@@ -1,27 +1,30 @@
 package sk.stuba.fei.uim.oop.game.pipes.board;
 
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Cell;
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Maze;
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.BasePipe;
-import sk.stuba.fei.uim.oop.game.pipes.board.pipes.LinePipe;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 import java.util.Random;
 
 public class GameBoard extends JPanel {
-    int sizeBoard = 8;
-    private boolean[][] board = new boolean[sizeBoard][sizeBoard];
-    Cell[][] maze;
-    LinkedList<Cell> path;
+    private int sizeBoard;
+    private Cell[][] maze;
     private GridLayout layout;
-    private Random random = new Random();
-    Maze mazeGenerator;
+    private Random random;
+    private Maze mazeGenerator;
 
     public GameBoard(){
-        mazeGenerator = new Maze(sizeBoard);
+        sizeBoard = 8;
+        this.random = new Random();
+
         layout = new GridLayout(sizeBoard, sizeBoard);
         this.setLayout(layout);
+
+        mazeGenerator = new Maze(sizeBoard);
         genereteNewMaze();
+
 
     }
 
@@ -39,25 +42,24 @@ public class GameBoard extends JPanel {
 
     public void genereteNewMaze(){
         if(maze != null){
-            for (int i = 0; i < maze.length; i++) {
+            for (Cell[] cells : maze) {
                 for (int j = 0; j < maze.length; j++) {
                     BasePipe pipe;
-                    pipe = maze[i][j].getPipe();
+                    pipe = cells[j].getPipe();
                     this.remove(pipe);
                 }
             }
         }
         mazeGenerator = new Maze(sizeBoard);
         this.maze = mazeGenerator.getMaze();
-        this.path = mazeGenerator.getPath();
 
         this.mazeGenerator.getStartCell().setStartPipe(50, 50);
         this.mazeGenerator.getFinishCell().setFinishPipe(50, 50);
 
-        for (int i = 0; i < maze.length; i++) {
+        for (Cell[] cells : maze) {
             for (int j = 0; j < maze.length; j++) {
                 BasePipe pipe;
-                pipe = maze[i][j].createPipe(50, 50);
+                pipe = cells[j].createPipe(50, 50);
                 pipe.setOpaque(true);
                 this.add(pipe);
             }

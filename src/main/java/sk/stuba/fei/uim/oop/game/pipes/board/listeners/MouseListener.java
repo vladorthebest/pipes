@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop.game.pipes.board.listeners;
 
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.BasePipe;
 
-import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 

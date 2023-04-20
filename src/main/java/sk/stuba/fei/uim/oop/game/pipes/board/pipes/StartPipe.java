@@ -1,7 +1,7 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.pipes;
 
-import sk.stuba.fei.uim.oop.game.pipes.board.Cell;
-import sk.stuba.fei.uim.oop.game.pipes.board.Input;
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Cell;
+import sk.stuba.fei.uim.oop.game.pipes.board.maze.Input;
 
 public class StartPipe extends BasePipe {
 

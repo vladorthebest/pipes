@@ -1,16 +1,17 @@
-package sk.stuba.fei.uim.oop.game.pipes.board;
+package sk.stuba.fei.uim.oop.game.pipes.board.maze;
 
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.EmptyPipe;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.Random;
 
-class Maze{
-    Cell[][] maze;
-    LinkedList<Cell> path = new LinkedList<>();
-    int size;
-    Random random = new Random();
-    int startJ, startI, finishI, finishJ;
+public class Maze{
+    private Cell[][] maze;
+    private LinkedList<Cell> path;
+    private int size;
+    private Random random;
+    private int startJ, startI, finishI, finishJ;
 
 
 
@@ -20,7 +21,8 @@ class Maze{
         }else {
             this.size = size;
         }
-
+        random = new Random();
+        path = new LinkedList<>();
         generateNewMaze();
 
     }
@@ -58,10 +60,6 @@ class Maze{
                 path.get(i+1).setInput(Input.LEFT);
             }
         }
-
-        for(int i=0; i<path.size(); i++) {
-
-        }
     }
 
     private void createStartFinish(){
@@ -81,40 +79,39 @@ class Maze{
         return path;
     }
 
-    public boolean req(int nowI, int nowJ){
+    private void req(int nowI, int nowJ){
         if(!path.contains(maze[nowI][nowJ]))
             path.add(maze[nowI][nowJ]);
         maze[nowI][nowJ].setVisited(true);
         LinkedList<Cell> neighbours = new LinkedList<>();
 
         if(nowI == finishI && nowJ == finishJ){
-            return true;
+            return;
         }
 
         if(nowI != 0){
-            if(!maze[nowI-1][nowJ].isVisited() )
-            neighbours.add(maze[nowI-1][nowJ]);
+            if(!maze[nowI-1][nowJ].isVisited())
+                neighbours.add(maze[nowI-1][nowJ]);
         }
         if(nowI != size-1){
             if(!maze[nowI+1][nowJ].isVisited() )
-            neighbours.add(maze[nowI+1][nowJ]);
+                neighbours.add(maze[nowI+1][nowJ]);
         }
         if(nowJ != 0){
             if(!maze[nowI][nowJ-1].isVisited() )
-            neighbours.add(maze[nowI][nowJ-1]);
+                neighbours.add(maze[nowI][nowJ-1]);
         }
         if(nowJ != size-1){
             if(!maze[nowI][nowJ+1].isVisited())
-            neighbours.add(maze[nowI][nowJ+1]);
+                neighbours.add(maze[nowI][nowJ+1]);
         }
-        neighbours.sort((a, b) -> a.getValue() - b.getValue());
-;
+        neighbours.sort(Comparator.comparingInt(Cell::getValue));
+
         if(neighbours.isEmpty()){
             path.removeLast();
         }else {
             req(neighbours.getFirst().getI(), neighbours.getFirst().getJ());
         }
-        return true;
     }
 
     public Cell getStartCell(){
@@ -128,10 +125,9 @@ class Maze{
         return checkCellComplete(path.getFirst(), path.getFirst().getPipe().getNowInput());
 
     }
-    public boolean checkCellComplete(Cell cell, Input output){
+    private boolean checkCellComplete(Cell cell, Input output){
         int i = cell.getI();
         int j = cell.getJ();
-
         if(i == finishI && j == finishJ){
             return true;
         }
@@ -139,37 +135,26 @@ class Maze{
         switch (output) {
             case TOP :
                 i--;
-                if (i < 0) {
-                    cell.getPipe().setRedIcon();
-                    return false;
-                }
                 break;
 
             case LEFT:
                 j--;
-                if (j < 0) {
-                    cell.getPipe().setRedIcon();
-                    return false;
-                }
                 break;
 
             case RIGHT:
                 j++;
-                if (j > size - 1) {
-                    cell.getPipe().setRedIcon();
-                    return false;
-                }
                 break;
 
             case BOTTOM:
                 i++;
-                if (i > size - 1) {
-                    cell.getPipe().setRedIcon();
-                    return false;
-                }
                 break;
-
         }
+
+        if ((i < 0 || i > size - 1) || (j > size - 1 || j < 0)){
+            cell.getPipe().setRedIcon();
+            return false;
+        }
+
         return checkNextInput(cell, maze[i][j], output.mirror());
     }
 

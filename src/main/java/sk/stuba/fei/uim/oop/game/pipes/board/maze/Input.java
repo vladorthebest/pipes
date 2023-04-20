@@ -1,4 +1,4 @@
-package sk.stuba.fei.uim.oop.game.pipes.board;
+package sk.stuba.fei.uim.oop.game.pipes.board.maze;
 
 public enum Input {
     TOP, RIGHT, BOTTOM, LEFT;

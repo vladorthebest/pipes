@@ -1,15 +1,21 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.maze;
 
+import lombok.Getter;
+import lombok.Setter;
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.*;
 
 import java.util.Random;
 
 public class Cell {
+    @Getter @Setter
     private boolean isVisited;
+    @Setter
     private Input input, output;
-
+    @Getter
     private int value;
+    @Getter
     private int i, j;
+    @Getter
     private BasePipe pipe;
 
     public Cell(int i, int j){
@@ -18,35 +24,6 @@ public class Cell {
         this.i = i;
         this.j = j;
         this.value = random.nextInt(100);
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public boolean isVisited() {
-        return isVisited;
-    }
-
-    public void setVisited(boolean visited) {
-        isVisited = visited;
-    }
-
-
-    public void setInput(Input input) {
-        this.input = input;
-    }
-
-    public void setOutput(Input output) {
-        this.output = output;
-    }
-
-    public int getI() {
-        return i;
-    }
-
-    public int getJ() {
-        return j;
     }
 
 
@@ -64,26 +41,17 @@ public class Cell {
         } else {
             this.pipe = new AnglePipe(cellWidth, cellHeight, this);
         }
-        updateNowInputs();
 
         return pipe;
     }
 
     public void setStartPipe(int cellWidth, int cellHeight){
         this.pipe = new StartPipe(cellWidth, cellHeight, this);
-        updateNowInputs();
     }
 
     public void setFinishPipe(int cellWidth, int cellHeight){
         this.pipe = new FinishPipe(cellWidth, cellHeight, this);
-        updateNowInputs();
     }
 
 
-    public void updateNowInputs(){
-    }
-
-    public BasePipe getPipe() {
-        return pipe;
-    }
 }

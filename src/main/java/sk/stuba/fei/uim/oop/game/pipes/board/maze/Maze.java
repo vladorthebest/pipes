@@ -1,5 +1,6 @@
 package sk.stuba.fei.uim.oop.game.pipes.board.maze;
 
+import lombok.Getter;
 import sk.stuba.fei.uim.oop.game.pipes.board.pipes.EmptyPipe;
 
 import java.util.Comparator;
@@ -7,6 +8,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public class Maze{
+    @Getter
     private Cell[][] maze;
     private LinkedList<Cell> path;
     private int size;
@@ -70,15 +72,7 @@ public class Maze{
         finishI = size-1;
 
     }
-
-    public Cell[][] getMaze(){
-        return maze;
-    }
-
-    public LinkedList<Cell> getPath() {
-        return path;
-    }
-
+    
     private void req(int nowI, int nowJ){
         if(!path.contains(maze[nowI][nowJ]))
             path.add(maze[nowI][nowJ]);

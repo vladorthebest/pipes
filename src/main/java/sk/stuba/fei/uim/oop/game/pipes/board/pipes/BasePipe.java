@@ -63,7 +63,6 @@ public abstract class BasePipe extends JLabel {
 
         if(nowInput != null)
             nowInput = nowInput.rotate();
-        cell.updateNowInputs();
     }
 
     public void rotateImage() {

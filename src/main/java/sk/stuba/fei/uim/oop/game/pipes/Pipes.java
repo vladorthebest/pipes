@@ -17,8 +17,9 @@ public class Pipes extends JFrame {
 
     public Pipes() {
         setTitle("Pipes");
-        setSize(700, 700);
+        setSize(650, 700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
         setLayout(new BorderLayout());
         gameBoard = new GameBoard();
         menuPanel = new MenuPanel(this);

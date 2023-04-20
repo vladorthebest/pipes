@@ -6,9 +6,12 @@ import sk.stuba.fei.uim.oop.game.pipes.board.pipes.BasePipe;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class GameBoard extends JPanel {
+    Map<Integer, Integer> cellSizes;
     private int sizeBoard;
     private Cell[][] maze;
     private GridLayout layout;
@@ -18,8 +21,14 @@ public class GameBoard extends JPanel {
     public GameBoard(){
         sizeBoard = 8;
         this.random = new Random();
+        cellSizes = new HashMap<Integer, Integer>();
+        cellSizes.put(8, 80);
+        cellSizes.put(9, 70);
+        cellSizes.put(10, 63);
+        cellSizes.put(11, 58);
+        cellSizes.put(12, 53);
 
-        layout = new GridLayout(sizeBoard, sizeBoard);
+        layout = new GridLayout(sizeBoard, sizeBoard, 0, 0);
         this.setLayout(layout);
 
         mazeGenerator = new Maze(sizeBoard);
@@ -52,14 +61,14 @@ public class GameBoard extends JPanel {
         }
         mazeGenerator = new Maze(sizeBoard);
         this.maze = mazeGenerator.getMaze();
-
-        this.mazeGenerator.getStartCell().setStartPipe(50, 50);
-        this.mazeGenerator.getFinishCell().setFinishPipe(50, 50);
+        int cellSize = cellSizes.get(sizeBoard);
+        this.mazeGenerator.getStartCell().setStartPipe(cellSize, cellSize);
+        this.mazeGenerator.getFinishCell().setFinishPipe(cellSize, cellSize);
 
         for (Cell[] cells : maze) {
             for (int j = 0; j < maze.length; j++) {
                 BasePipe pipe;
-                pipe = cells[j].createPipe(50, 50);
+                pipe = cells[j].createPipe(cellSize, cellSize);
                 pipe.setOpaque(true);
                 this.add(pipe);
             }

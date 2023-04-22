@@ -22,6 +22,7 @@ public class SliderListener implements ChangeListener {
         if (!source.getValueIsAdjusting()) {
             int value = source.getValue();
             gameBoard.setSizeBoard(value);
+            game.getMenuPanel().resetLevel();
         }
         game.getMenuPanel().requestFocusInWindow();
     }

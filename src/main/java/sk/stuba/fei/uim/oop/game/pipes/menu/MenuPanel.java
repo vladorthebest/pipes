@@ -58,9 +58,12 @@ public class MenuPanel extends JPanel{
     public void nextLevel() {
         this.score++;
         updateTextLabel();
-        game.getGameBoard().genereteNewMaze();
     }
 
+    public void resetLevel() {
+        this.score = 1;
+        updateTextLabel();
+    }
     private void updateTextLabel() {
         scoreLabel.setText("Level: " + score);
     }

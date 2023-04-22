@@ -18,10 +18,14 @@ public class KeyListener extends KeyAdapter {
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if(gameBoard.checkMazeComplete())
+            if(gameBoard.checkMazeComplete()){
                 game.getMenuPanel().nextLevel();
+                game.getGameBoard().genereteNewMaze();
+            }
+
         }
         if (e.getKeyCode() == KeyEvent.VK_R){
+            game.getMenuPanel().resetLevel();
             game.getGameBoard().genereteNewMaze();
         }
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE){

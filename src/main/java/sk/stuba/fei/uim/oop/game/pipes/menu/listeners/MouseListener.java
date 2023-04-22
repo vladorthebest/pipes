@@ -18,9 +18,14 @@ public class MouseListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e)  {
         if (e.getSource() instanceof CheckButton){
-            if(gameBoard.checkMazeComplete())
+            if(gameBoard.checkMazeComplete()){
                 game.getMenuPanel().nextLevel();
+                gameBoard.genereteNewMaze();
+            }
+
+
         } else if (e.getSource() instanceof ResetButton) {
+            game.getMenuPanel().resetLevel();
             gameBoard.genereteNewMaze();
         }
         game.getMenuPanel().requestFocusInWindow();
